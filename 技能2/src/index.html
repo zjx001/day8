@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+
+    </div>
+</body>
+<script>
+    const div = document.querySelector('div')
+    const xhr = new XMLHttpRequest()
+    xhr.open('get', '/api/list', true)
+    xhr.send()
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                JSON.parse(xhr.responseText)
+                render(JSON.parse(xhr.responseText))
+            }
+        }
+    }
+
+    function render(data) {
+        div.innerHTML = data.map(file => {
+            return `
+            <dl>
+                <dt><img src="" alt=""></dt>
+                <dd>
+                    <p>${file.title}</p>
+                    <p>${file.price}</p>
+                </dd>
+            </dl>
+            `
+            console.log(file)
+        })
+    }
+</script>
+
+</html>
